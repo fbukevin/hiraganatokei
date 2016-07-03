@@ -1,0 +1,93 @@
+<title>平仮名時計｜ひらがなとけい</title>
+<style>
+	@import url(//fonts.googleapis.com/earlyaccess/notosansjapanese.css);
+	body{
+		text-align: center;
+		height: 45%;
+		margin-top: 10%;
+		padding-top: 0;
+		font-family: 'Noto Sans Japanese', serif;
+	}
+	#title {
+		font-size: 36px;
+	}
+	#clock{
+		font-size: 72px;
+	}
+	.nihongo {
+		font-size: 24px;
+	}
+	.nihongo span{
+		font-size: 14px;
+	}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.js"></script>
+<script src="date.js"></script>
+<body>
+	<div id="title">平仮名時計｜ひらがなとけい</div>
+	<br><br><br>
+	<div id="clock">{{context}}</div>
+	<br>
+	<div class="nihongo">
+		平成<span>(へいせい)</span> {{heisei}} 年 
+		{{month}} 月<span>{{gatsu}}</span>
+		{{date}} 日<span>{{nichi}}</span>
+		{{youbi}}<span>{{youbihiragana}}</span>
+	<br>
+	{{ji}}：{{pun}}
+	<script>
+
+
+	var body = new Vue({
+		el: 'body',
+		data: {
+			context: '',
+			gatsu: '',
+			nichi: '',
+			youbi: '',
+			youbihiragana: '',
+			heisei: '',
+			month: '',
+			date: '',
+			ji: '',
+			pun: ''
+		},
+		methods:{
+			updateTime: function() {
+			    var today = new Date();
+			    var year = today.getFullYear();
+			    var month = today.getMonth();	// from 0 - 11  月　 	(がつ)
+			    var date = today.getDate();		// from 1 - 31  日   	(にち)
+			    var day = today.getDay();			// from 0 - 6		曜日		(ようび)
+			    var hour = today.getHours();
+			    var minute = today.getMinutes();
+			    var second = today.getSeconds();
+
+			    this.heisei = year - 1989 + 1;	// 1989 is 平成 1
+			    this.gatsu = gatsu[month + 1];
+			    this.nichi = nichi[date];
+			    this.youbi = youbi[day];
+			    this.youbihiragana = youbihiragana[day];
+					this.month = month + 1;
+ 					this.date = date;
+ 					this.ji = ji[hour] || ji[hour-12];
+ 					this.pun = pun[minute];
+
+			    month = this.formalTime(month + 1);
+			    date = this.formalTime(date);
+			    minute = this.formalTime(minute);
+			    second = this.formalTime(second);
+			    this.context = year + "/" + month + '/' + date + " " + hour + ":" + minute + ":" + second;			    
+			    setTimeout(this.updateTime, 500);
+			},
+		 	formalTime: function(i) {
+    		if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+    			return i;
+			}
+		}
+	});
+
+	body.updateTime();
+
+	</script>
+</body>
