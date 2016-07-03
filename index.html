@@ -3,10 +3,13 @@
 	@import url(//fonts.googleapis.com/earlyaccess/notosansjapanese.css);
 	body{
 		text-align: center;
-		height: 45%;
-		margin-top: 10%;
-		padding-top: 0;
+		height: 40%;
+		margin-top: 7%;
 		font-family: 'Noto Sans Japanese', serif;
+		background-image: url('background.jpg');
+		background-size: 100% 100%;
+    background-repeat: no-repeat;
+
 	}
 	#title {
 		font-size: 36px;
@@ -25,9 +28,9 @@
 <script src="date.js"></script>
 <body>
 	<div id="title">平仮名時計｜ひらがなとけい</div>
-	<br><br><br>
-	<div id="clock">{{context}}</div>
 	<br>
+	<div id="clock">{{context}}</div>
+	<br><br>
 	<div class="nihongo">
 		平成<span>(へいせい)</span> {{heisei}} 年 
 		{{month}} 月<span>{{gatsu}}</span>
